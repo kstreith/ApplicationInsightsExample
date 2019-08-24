@@ -15,3 +15,7 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+- script: dotnet publish --configuration $(buildConfiguration) -o artifacts
+  displayName: 'dotnet publish $(buildConfiguration)'
+- publish: artifacts
+  artifact: webapi
