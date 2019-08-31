@@ -13,6 +13,11 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)/CustomerApi.Deploy/'
+    artifact: 'deploy'
+  displayName: Publish Deploy Scripts    
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 - script: dotnet publish --configuration $(buildConfiguration) -o artifacts
@@ -20,6 +25,3 @@ steps:
 - publish: CustomerApi/artifacts
   artifact: webapi
   displayName: Publish WebApi
-- publish: CustomerApi.Deploy/
-  artifact: deploy
-  displayName: Publish Deploy Scripts
