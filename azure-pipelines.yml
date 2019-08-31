@@ -24,13 +24,8 @@ steps:
   displayName: 'dotnet publish $(buildConfiguration)'
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/CustomerApi/publish'
+    rootFolderOrFile: '$(Build.SourcesDirectory)/CustomerApi/publish/'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/webapi.zip'
     replaceExistingArchive: true
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/webapi.zip'
-    artifact: 'deploy'
-  displayName: Publish WebApi    
