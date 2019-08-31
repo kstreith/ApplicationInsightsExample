@@ -19,5 +19,7 @@ steps:
   displayName: 'dotnet publish $(buildConfiguration)'
 - publish: CustomerApi/artifacts
   artifact: webapi
-- publish: CustomerApi.Deploy
+  displayName: Publish WebApi
+- publish: CustomerApi.Deploy/
   artifact: deploy
+  displayName: Publish Deploy Scripts
