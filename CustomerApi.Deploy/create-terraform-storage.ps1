@@ -6,5 +6,5 @@ $storage = "customerapist"
 & az storage account create --name "$storage" --resource "$rg" --location eastus2 --sku Standard_LRS
 & az storage container create --name terraform --account-name "$storage"
 
-#$k = & az storage account keys list -g "customer-api-tf-rg" -n "customerapist" --query [0].value
-#C:\terraform\terraform.exe init --backend-config="key=$k"
+$storageKey = & az storage account keys list -g "customer-api-tf-rg" -n "customerapist" --query [0].value
+& terraform.exe init --backend-config="access_key=$storageKey"
