@@ -15,7 +15,7 @@ variables:
 steps:
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Pipeline.Workspace)/CustomerApi.Deploy/'
+    targetPath: '$(Build.SourcesDirectory)/CustomerApi.Deploy/'
     artifact: 'deploy'
   displayName: Publish Deploy Scripts    
 - script: dotnet build --configuration $(buildConfiguration)
