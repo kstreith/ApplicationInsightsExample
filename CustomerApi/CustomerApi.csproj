@@ -10,6 +10,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.7.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.10.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerApi.Business\CustomerApi.Business.csproj" />
+    <ProjectReference Include="..\DataRepository.InMemory\DataRepository.InMemory.csproj" />
   </ItemGroup>
 
 </Project>
