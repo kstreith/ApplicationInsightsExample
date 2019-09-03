@@ -14,8 +14,10 @@ namespace DataRepository.InMemory
         public InMemoryDataRepository()
         {
             _customers = new ConcurrentDictionary<Guid, CustomerModel>();
-            _customers.TryAdd(new Guid("88f37d26-6616-4598-8792-e3bb9b814c72"), new CustomerModel
+            var id = new Guid("88f37d26-6616-4598-8792-e3bb9b814c72");
+            _customers.TryAdd(id, new CustomerModel
             {
+                Id = id,
                 FirstName = "TestFirst",
                 LastName = "TestLast",
                 EmailAddress = "test@test.itsnull.com"
