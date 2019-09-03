@@ -2,6 +2,7 @@
 using CustomerApi.Business.Interfaces;
 using CustomerApi.Business.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace CustomerApi.Business.Services.Customer
 {
@@ -14,12 +15,12 @@ namespace CustomerApi.Business.Services.Customer
             _dataRepository = dataRepository;
         }
 
-        public CustomerModel GetCustomer(string id)
+        public async Task<CustomerModel> GetCustomerAsync(string id)
         {
             if (!Guid.TryParse(id, out var idGuid)) {
                 throw new NotFoundException();
             }
-            var customer = _dataRepository.GetCustomerById(idGuid);
+            var customer = await _dataRepository.GetCustomerByIdAsync(idGuid);
             if (customer == null)
             {
                 throw new NotFoundException();

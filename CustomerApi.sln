@@ -11,9 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CustomerApi.Deploy\customer-api.tf = CustomerApi.Deploy\customer-api.tf
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerApi.Business", "CustomerApi.Business\CustomerApi.Business.csproj", "{97EAB9F8-DA1A-4EFE-A9FF-81FF13F876C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerApi.Business", "CustomerApi.Business\CustomerApi.Business.csproj", "{97EAB9F8-DA1A-4EFE-A9FF-81FF13F876C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataRepository.InMemory", "DataRepository.InMemory\DataRepository.InMemory.csproj", "{DF6F7628-60C3-47F0-9E84-EFC05F7C36F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository.InMemory", "DataRepository.InMemory\DataRepository.InMemory.csproj", "{DF6F7628-60C3-47F0-9E84-EFC05F7C36F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataRepository.Cosmos", "DataRepository.Cosmos\DataRepository.Cosmos.csproj", "{833235B3-3002-43A6-9117-1BA52AEDA64F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DF6F7628-60C3-47F0-9E84-EFC05F7C36F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF6F7628-60C3-47F0-9E84-EFC05F7C36F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF6F7628-60C3-47F0-9E84-EFC05F7C36F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{833235B3-3002-43A6-9117-1BA52AEDA64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{833235B3-3002-43A6-9117-1BA52AEDA64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{833235B3-3002-43A6-9117-1BA52AEDA64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{833235B3-3002-43A6-9117-1BA52AEDA64F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

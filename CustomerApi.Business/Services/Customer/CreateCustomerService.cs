@@ -2,6 +2,7 @@
 using CustomerApi.Business.Models;
 using CustomerApi.Business.Services.ValueTypes;
 using System;
+using System.Threading.Tasks;
 
 namespace CustomerApi.Business.Services.Customer
 {
@@ -14,11 +15,11 @@ namespace CustomerApi.Business.Services.Customer
             _dataRepository = dataRepository;
         }
 
-        public IdentifiableResult<CustomerModel> CreateCustomer(CustomerModel customer)
+        public async Task<IdentifiableResult<CustomerModel>> CreateCustomerAsync(CustomerModel customer)
         {
             var newId = Guid.NewGuid();
             customer.Id = newId;
-            _dataRepository.CreateCustomer(customer);
+            await _dataRepository.CreateCustomerAsync(customer);
             return new IdentifiableResult<CustomerModel>(newId.ToString(), customer);
         } 
     }

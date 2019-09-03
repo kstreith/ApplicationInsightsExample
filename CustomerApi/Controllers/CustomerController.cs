@@ -2,6 +2,7 @@
 using CustomerApi.Business.Models;
 using CustomerApi.Business.Services.Customer;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CustomerApi.Controllers
 {
@@ -21,11 +22,11 @@ namespace CustomerApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<CustomerModel> Get(string id)
+        public async Task<ActionResult<CustomerModel>> GetAsync(string id)
         {
             try
             {
-                var customer = _getCustomerService.GetCustomer(id);
+                var customer = await _getCustomerService.GetCustomerAsync(id);
                 return new OkObjectResult(customer);
             }
             catch (NotFoundException)
@@ -35,10 +36,10 @@ namespace CustomerApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<CustomerModel> Post([FromBody] CustomerModel value)
+        public async Task<ActionResult<CustomerModel>> PostAsync([FromBody] CustomerModel value)
         {
-            var result = _createCustomerService.CreateCustomer(value);
-            return new CreatedAtActionResult(nameof(Get), nameof(CustomerController), new { id = result.Id }, result);
+            var result = await _createCustomerService.CreateCustomerAsync(value);
+            return new CreatedAtActionResult(nameof(GetAsync), nameof(CustomerController), new { id = result.Id }, result);
         }
     }
 }

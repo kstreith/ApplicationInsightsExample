@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.ApplicationInsights.Extensibility;
+﻿using CustomerApi.Business.Interfaces;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.ApplicationInsights;
-using Microsoft.Extensions.Logging.Configuration;
+using System.Threading.Tasks;
 
 namespace CustomerApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var host = CreateWebHostBuilder(args).Build();
+            var initializer = host.Services.GetService<IDataRepositoryInitializer>();
+            if (initializer != null)
+            {
+                await initializer.InitAsync();
+            }
+            var config = host.Services.GetService<IConfiguration>();
+            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

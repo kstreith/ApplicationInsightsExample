@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CustomerApi.Business.Interfaces;
 using CustomerApi.Business.Models;
 
@@ -21,34 +22,35 @@ namespace DataRepository.InMemory
             });
         }
 
-        public void CreateCustomer(CustomerModel customer)
+        public Task CreateCustomerAsync(CustomerModel customer)
         {
             if (!_customers.TryAdd(customer.Id.Value, customer))
             {
                 throw new InvalidOperationException("Add failed");
             }
+            return Task.CompletedTask;
         }
 
-        public CustomerModel GetCustomerById(Guid customerId)
+        public Task<CustomerModel> GetCustomerByIdAsync(Guid customerId)
         {
             if (_customers.TryGetValue(customerId, out var customer))
             {
-                return customer;
+                return Task.FromResult(customer);
             }
-            return null;
+            return Task.FromResult<CustomerModel>(null);
         }
 
-        public List<CustomerInteractionModel> GetInteractions(int page)
+        public Task<List<CustomerInteractionModel>> GetInteractionsAsync(int page)
         {
             throw new NotImplementedException();
         }
 
-        public Guid LookupCustomerIdByEmail(string emailAddress)
+        public Task<Guid> LookupCustomerIdByEmailAsync(string emailAddress)
         {
             throw new NotImplementedException();
         }
 
-        public void OverwriteCustomer(CustomerModel customer)
+        public Task OverwriteCustomerAsync(CustomerModel customer)
         {
             throw new NotImplementedException();
         }
