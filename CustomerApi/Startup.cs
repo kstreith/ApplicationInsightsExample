@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CustomerApi.Config;
+using DataRepository.Cosmos;
+using DataRepository.InMemory;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +27,16 @@ namespace CustomerApi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.RegisterAppDependencies();
+            if (string.Equals(Configuration["Storage"], "Cosmos", StringComparison.InvariantCultureIgnoreCase))
+            {
+                services.RegisterCosmosDependencies(Configuration);
+            }
+            else
+            {
+                services.RegisterInMemoryDependencies(Configuration);
+            }
             services.PostConfigureAll<LoggerFilterOptions>(action =>
             {
-                var level = action.MinLevel;
-                //Microsoft.Extensions.Logging.ApplicationInsights.ApplicationInsightsLoggerProvider
                 var matchingRule = action.Rules.SingleOrDefault(x => x.ProviderName == typeof(ApplicationInsightsLoggerProvider).FullName);
                 if (matchingRule != null)
                 {

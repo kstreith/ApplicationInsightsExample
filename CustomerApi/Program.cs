@@ -1,4 +1,5 @@
 ﻿using CustomerApi.Business.Interfaces;
+using CustomerApi.Business.Services.Customer;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,11 @@ namespace CustomerApi
                 await initializer.InitAsync();
             }
             var config = host.Services.GetService<IConfiguration>();
+            if (config.GetValue<bool>("InitializeWithSampleData"))
+            {
+                var createDataService = host.Services.GetService<CreateSampleCustomerDataService>();
+                await createDataService.CreateSampleData();
+            }
             host.Run();
         }
 

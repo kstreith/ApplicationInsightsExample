@@ -18,7 +18,7 @@ namespace DataRepository.Cosmos
             var client = _connection.GetOrCreateCosmosClient();
             await client.CreateDatabaseIfNotExistsAsync("CustomerApi", 400);
             await client.GetDatabase("CustomerApi")
-                .DefineContainer("Customer", "PartitionKey")
+                .DefineContainer("Customer", $"/{nameof(CustomerDocument.PartitionKey)}")
                 .CreateIfNotExistsAsync();
         }
     }

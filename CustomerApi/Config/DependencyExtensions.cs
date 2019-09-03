@@ -1,6 +1,4 @@
-﻿using CustomerApi.Business.Interfaces;
-using CustomerApi.Business.Services.Customer;
-using DataRepository.InMemory;
+﻿using CustomerApi.Business.Services.Customer;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CustomerApi.Config
@@ -9,7 +7,7 @@ namespace CustomerApi.Config
     {
         public static void RegisterAppDependencies(this IServiceCollection services)
         {
-            services.AddSingleton<IDataRepository, InMemoryDataRepository>();
+            services.AddTransient<CreateSampleCustomerDataService, CreateSampleCustomerDataService>();
             services.AddTransient<CreateCustomerService, CreateCustomerService>();
             services.AddTransient<GetCustomerService, GetCustomerService>();
         }
