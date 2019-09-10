@@ -39,7 +39,7 @@ namespace CustomerApi.Controllers
         public async Task<ActionResult<CustomerModel>> PostAsync([FromBody] CustomerModel value)
         {
             var result = await _createCustomerService.CreateCustomerAsync(value);
-            return new CreatedAtActionResult(nameof(GetAsync), "Customer", new { id = result.Id }, result);
+            return new CreatedAtActionResult(nameof(GetAsync), "Customer", new { id = result.Id }, null);
         }
     }
 }

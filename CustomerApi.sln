@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerApi", "CustomerApi\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C88EBD38-5ADD-4609-A65E-7FAD90E1ABAF}"
 	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
 		CustomerApi.Deploy\create-terraform-storage.ps1 = CustomerApi.Deploy\create-terraform-storage.ps1
 		CustomerApi.Deploy\customer-api.tf = CustomerApi.Deploy\customer-api.tf
 	EndProjectSection

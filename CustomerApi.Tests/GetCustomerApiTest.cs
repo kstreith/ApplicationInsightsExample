@@ -1,27 +1,18 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace CustomerApi.Tests
 {
-    public class TestFactory : WebApplicationFactory<Startup>
+    public class GetCustomerApiTest : IClassFixture<CustomerApiFactory>
     {
-        protected override TestServer CreateServer(IWebHostBuilder builder)
-        {
-            var server = base.CreateServer(builder);
-            Bootstrap.InitializeApplication(server.Host).Wait();
-            return server;
-        }
-    }
-    public class GetCustomerApiTest : IClassFixture<TestFactory>
-    {
-        private readonly TestFactory _webApplicationFactory;
+        private readonly CustomerApiFactory _webApplicationFactory;
 
-        public GetCustomerApiTest(TestFactory webApplicationFactory)
+        public GetCustomerApiTest(CustomerApiFactory webApplicationFactory)
         {
             _webApplicationFactory = webApplicationFactory;
         }
@@ -41,5 +32,28 @@ namespace CustomerApi.Tests
             var responseContent = await response.Content.ReadAsStringAsync();
             responseContent.Should().Be(@"{""id"":""88f37d26-6616-4598-8792-e3bb9b814c72"",""firstName"":""TestFirst"",""lastName"":""TestLast"",""emailAddress"":""test@test.itsnull.com""}");
         }
+
+        [Fact]
+        public async Task GetCustomer_NotFound()
+        {
+            // Arrange
+            var notFoundId = "e722bc15-59d7-4830-acd4-36e987f47e8d";
+            var client = _webApplicationFactory.CreateDefaultClient();
+
+            // Act
+            var response = await client.GetAsync($"/api/customer/{notFoundId}");
+
+            // Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var responseContent = JsonConvert.DeserializeObject<Dictionary<string, string>>(await response.Content.ReadAsStringAsync());
+            responseContent.Should().HaveCount(4);
+            responseContent.Should().ContainKeys("type", "title", "status", "traceId");
+            responseContent["type"].Should().Be("https://tools.ietf.org/html/rfc7231#section-6.5.4");
+            responseContent["title"].Should().Be("Not Found");
+            responseContent["status"].Should().Be("404");
+            responseContent["traceId"].Should().NotBeNullOrWhiteSpace();
+        }
+
     }
 }
