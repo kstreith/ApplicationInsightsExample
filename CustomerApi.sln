@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerApi.Business", "Cus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository.InMemory", "DataRepository.InMemory\DataRepository.InMemory.csproj", "{DF6F7628-60C3-47F0-9E84-EFC05F7C36F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataRepository.Cosmos", "DataRepository.Cosmos\DataRepository.Cosmos.csproj", "{833235B3-3002-43A6-9117-1BA52AEDA64F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository.Cosmos", "DataRepository.Cosmos\DataRepository.Cosmos.csproj", "{833235B3-3002-43A6-9117-1BA52AEDA64F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerApi.Tests", "CustomerApi.Tests\CustomerApi.Tests.csproj", "{261ACDDA-4947-4381-8366-343D55822186}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{833235B3-3002-43A6-9117-1BA52AEDA64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{833235B3-3002-43A6-9117-1BA52AEDA64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{833235B3-3002-43A6-9117-1BA52AEDA64F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261ACDDA-4947-4381-8366-343D55822186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{261ACDDA-4947-4381-8366-343D55822186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{261ACDDA-4947-4381-8366-343D55822186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{261ACDDA-4947-4381-8366-343D55822186}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

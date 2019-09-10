@@ -1,6 +1,4 @@
-﻿using CustomerApi.Business.Interfaces;
-using CustomerApi.Business.Services.Customer;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,17 +11,7 @@ namespace CustomerApi
         public static async Task Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
-            var initializer = host.Services.GetService<IDataRepositoryInitializer>();
-            if (initializer != null)
-            {
-                await initializer.InitAsync();
-            }
-            var config = host.Services.GetService<IConfiguration>();
-            if (config.GetValue<bool>("InitializeWithSampleData"))
-            {
-                var createDataService = host.Services.GetService<CreateSampleCustomerDataService>();
-                await createDataService.CreateSampleData();
-            }
+            await Bootstrap.InitializeApplication(host);
             host.Run();
         }
 
