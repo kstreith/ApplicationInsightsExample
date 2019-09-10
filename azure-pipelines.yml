@@ -20,6 +20,11 @@ steps:
   displayName: Publish Deploy Scripts    
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*.Tests.csproj'
+    testRunTitle: 'Unit Tests'
 - script: dotnet publish --configuration $(buildConfiguration) -o publish
   displayName: 'dotnet publish $(buildConfiguration)'
 - task: ArchiveFiles@2
