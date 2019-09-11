@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		azure-pipelines.yml = azure-pipelines.yml
 		CustomerApi.Deploy\create-terraform-storage.ps1 = CustomerApi.Deploy\create-terraform-storage.ps1
 		CustomerApi.Deploy\customer-api.tf = CustomerApi.Deploy\customer-api.tf
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerApi.Business", "CustomerApi.Business\CustomerApi.Business.csproj", "{97EAB9F8-DA1A-4EFE-A9FF-81FF13F876C5}"
@@ -19,6 +20,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository.Cosmos", "DataRepository.Cosmos\DataRepository.Cosmos.csproj", "{833235B3-3002-43A6-9117-1BA52AEDA64F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerApi.Tests", "CustomerApi.Tests\CustomerApi.Tests.csproj", "{261ACDDA-4947-4381-8366-343D55822186}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository.SqlServer", "DataRepository.SqlServer\DataRepository.SqlServer.csproj", "{AED8C7E7-4B0F-46C3-96B4-7853736CDD94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +49,10 @@ Global
 		{261ACDDA-4947-4381-8366-343D55822186}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{261ACDDA-4947-4381-8366-343D55822186}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{261ACDDA-4947-4381-8366-343D55822186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AED8C7E7-4B0F-46C3-96B4-7853736CDD94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AED8C7E7-4B0F-46C3-96B4-7853736CDD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AED8C7E7-4B0F-46C3-96B4-7853736CDD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AED8C7E7-4B0F-46C3-96B4-7853736CDD94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

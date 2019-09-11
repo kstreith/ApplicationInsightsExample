@@ -11,16 +11,19 @@ namespace CustomerApi
     {
         public static async Task InitializeApplication(IWebHost host)
         {
-            var initializer = host.Services.GetService<IDataRepositoryInitializer>();
-            if (initializer != null)
+            using (var scope = host.Services.CreateScope())
             {
-                await initializer.InitAsync();
-            }
-            var config = host.Services.GetService<IConfiguration>();
-            if (config.GetValue<bool>("InitializeWithSampleData"))
-            {
-                var createDataService = host.Services.GetService<CreateSampleCustomerDataService>();
-                await createDataService.CreateSampleData();
+                var initializer = scope.ServiceProvider.GetService<IDataRepositoryInitializer>();
+                if (initializer != null)
+                {
+                    await initializer.InitAsync();
+                }
+                var config = scope.ServiceProvider.GetService<IConfiguration>();
+                if (config.GetValue<bool>("InitializeWithSampleData"))
+                {
+                    var createDataService = scope.ServiceProvider.GetService<CreateSampleCustomerDataService>();
+                    await createDataService.CreateSampleData();
+                }
             }
         }
     }

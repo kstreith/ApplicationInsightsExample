@@ -22,6 +22,7 @@
     <ProjectReference Include="..\CustomerApi.Business\CustomerApi.Business.csproj" />
     <ProjectReference Include="..\DataRepository.Cosmos\DataRepository.Cosmos.csproj" />
     <ProjectReference Include="..\DataRepository.InMemory\DataRepository.InMemory.csproj" />
+    <ProjectReference Include="..\DataRepository.SqlServer\DataRepository.SqlServer.csproj" />
   </ItemGroup>
 
 </Project>

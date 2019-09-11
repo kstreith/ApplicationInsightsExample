@@ -3,6 +3,7 @@ using System.Linq;
 using CustomerApi.Config;
 using DataRepository.Cosmos;
 using DataRepository.InMemory;
+using DataRepository.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,10 @@ namespace CustomerApi
             if (string.Equals(Configuration["Storage"], "Cosmos", StringComparison.InvariantCultureIgnoreCase))
             {
                 services.RegisterCosmosDependencies(Configuration);
+            }
+            else if (string.Equals(Configuration["Storage"], "SqlServer", StringComparison.InvariantCultureIgnoreCase))
+            {
+                services.RegisterSqlServerDependencies(Configuration);
             }
             else
             {
