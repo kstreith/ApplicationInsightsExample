@@ -57,7 +57,6 @@ namespace CustomerApi.Tests
             result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
             result.Headers.Location.Should().BeNull();
             var responseString = await result.Content.ReadAsStringAsync();
-            //responseString.Should().Be("");
             var responseContent = JObject.Parse(responseString);
             responseContent.Should().HaveCount(4);
             responseContent.Should().ContainKeys("errors", "title", "status", "traceId");
@@ -67,6 +66,62 @@ namespace CustomerApi.Tests
             var firstNameErrors = responseContent.Value<JObject>("errors").Value<JArray>("FirstName");
             firstNameErrors.Should().HaveCount(1);
             firstNameErrors[0].ToString().Should().Be("The FirstName field is required.");
+        }
+
+        [Fact]
+        public async Task CreateConsumer_MissingRequired_LastName_Fails()
+        {
+            // Arrange
+            var client = _webApplicationFactory.CreateDefaultClient();
+            var requestObj = new
+            {
+                firstName = "TestFirst",
+                emailAddress = "test2@test.pandora.net"
+            };
+            var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
+            var result = await client.PostAsync("/api/customer/", request);
+
+            // Assert
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            result.Headers.Location.Should().BeNull();
+            var responseString = await result.Content.ReadAsStringAsync();
+            var responseContent = JObject.Parse(responseString);
+            responseContent.Should().HaveCount(4);
+            responseContent.Should().ContainKeys("errors", "title", "status", "traceId");
+            responseContent["title"]?.ToString().Should().Be("One or more validation errors occurred.");
+            responseContent["status"]?.ToString().Should().Be("400");
+            responseContent["traceId"].Should().NotBeNull();
+            var lastNameErrors = responseContent.Value<JObject>("errors").Value<JArray>("LastName");
+            lastNameErrors.Should().HaveCount(1);
+            lastNameErrors[0].ToString().Should().Be("The LastName field is required.");
+        }
+
+        [Fact]
+        public async Task CreateConsumer_MissingRequired_EmailAddress_Fails()
+        {
+            // Arrange
+            var client = _webApplicationFactory.CreateDefaultClient();
+            var requestObj = new
+            {
+                firstName = "TestFirst",
+                lastName = "TestLast"
+            };
+            var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
+            var result = await client.PostAsync("/api/customer/", request);
+
+            // Assert
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            result.Headers.Location.Should().BeNull();
+            var responseString = await result.Content.ReadAsStringAsync();
+            var responseContent = JObject.Parse(responseString);
+            responseContent.Should().HaveCount(4);
+            responseContent.Should().ContainKeys("errors", "title", "status", "traceId");
+            responseContent["title"]?.ToString().Should().Be("One or more validation errors occurred.");
+            responseContent["status"]?.ToString().Should().Be("400");
+            responseContent["traceId"].Should().NotBeNull();
+            var emailAddressErrors = responseContent.Value<JObject>("errors").Value<JArray>("EmailAddress");
+            emailAddressErrors.Should().HaveCount(1);
+            emailAddressErrors[0].ToString().Should().Be("The EmailAddress field is required.");
         }
 
     }

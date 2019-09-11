@@ -12,5 +12,6 @@ namespace CustomerApi.Business.Interfaces
         Task OverwriteCustomerAsync(CustomerModel customer);
         Task<List<CustomerInteractionModel>> GetInteractionsAsync(int page);
         Task<Guid> LookupCustomerIdByEmailAsync(string emailAddress);
+        Task<List<string>> GetRandomCustomerIdsAsync();
     }
 }

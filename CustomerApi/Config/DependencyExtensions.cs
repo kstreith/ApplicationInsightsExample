@@ -10,6 +10,7 @@ namespace CustomerApi.Config
             services.AddTransient<CreateSampleCustomerDataService, CreateSampleCustomerDataService>();
             services.AddTransient<CreateCustomerService, CreateCustomerService>();
             services.AddTransient<GetCustomerService, GetCustomerService>();
+            services.AddTransient<GetRandomCustomerService, GetRandomCustomerService>();
         }
     }
 }

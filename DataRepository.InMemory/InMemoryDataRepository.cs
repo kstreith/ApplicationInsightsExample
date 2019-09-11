@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CustomerApi.Business.Interfaces;
 using CustomerApi.Business.Models;
@@ -37,6 +38,13 @@ namespace DataRepository.InMemory
         public Task<List<CustomerInteractionModel>> GetInteractionsAsync(int page)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<List<string>> GetRandomCustomerIdsAsync()
+        {
+            var values = _customers.Values;
+            var items = Math.Min(_customers.Values.Count, 100);
+            return Task.FromResult(values.Select(x => x.Id.ToString()).Take(items).ToList());
         }
 
         public Task<Guid> LookupCustomerIdByEmailAsync(string emailAddress)
