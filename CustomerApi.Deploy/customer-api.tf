@@ -56,12 +56,12 @@ resource "azurerm_sql_server" "dev" {
 
 
 resource "azurerm_sql_database" "dev" {
-  name                          = "customerapi"
-  resource_group_name           = "${azurerm_resource_group.dev.name}"
-  location                      = "${azurerm_resource_group.dev.name}"
-  server_name                   = "${azurerm_sql_server.dev.name}"
-  edition			            = "Standard"
-  requested_service_object_name = "S0"
+  name                             = "customerapi"
+  resource_group_name              = "${azurerm_resource_group.dev.name}"
+  location                         = "${azurerm_resource_group.dev.name}"
+  server_name                      = "${azurerm_sql_server.dev.name}"
+  edition			               = "Standard"
+  requested_service_objective_name = "S0"
 }
 
 resource "azurerm_sql_firewall_rule" "test" {
