@@ -9,9 +9,9 @@ namespace DataRepository.SqlServer
         {
             Create.Table("Customer")
                 .WithColumn("Id").AsGuid().PrimaryKey()
-                .WithColumn("FirstName").AsFixedLengthString(200).NotNullable()
-                .WithColumn("LastName").AsFixedLengthString(200).NotNullable()
-                .WithColumn("EmailAddress").AsFixedLengthString(200).NotNullable();
+                .WithColumn("FirstName").AsString(200).NotNullable()
+                .WithColumn("LastName").AsString(200).NotNullable()
+                .WithColumn("EmailAddress").AsString(200).NotNullable();
         }
 
         public override void Down()

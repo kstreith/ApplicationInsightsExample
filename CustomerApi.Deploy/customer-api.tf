@@ -44,3 +44,61 @@ resource "azurerm_application_insights" "dev" {
 output "instrumentation_key" {
 	value = "${azurerm_application_insights.dev.instrumentation_key}"
 }
+
+resource "azurerm_sql_server" "dev" {
+  name                         = "customerapisqldb"
+  resource_group_name          = "${azurerm_resource_group.dev.name}"
+  location                     = "${azurerm_resource_group.dev.location}"
+  version                      = "12.0"
+  administrator_login          = "4dm1n157r470r"
+  administrator_login_password = "4-v3ry-53cr37-p455w0rd"
+}
+
+
+resource "azurerm_sql_database" "dev" {
+  name                          = "customerapi"
+  resource_group_name           = "${azurerm_resource_group.dev.name}"
+  location                      = "${azurerm_resource_group.dev.name}"
+  server_name                   = "${azurerm_sql_server.dev.name}"
+  edition			            = "Standard"
+  requested_service_object_name = "S0"
+}
+
+resource "azurerm_sql_firewall_rule" "test" {
+  name                = "AllowAzureAccess"
+  resource_group_name = "${azurerm_resource_group.dev.name}"
+  server_name         = "${azurerm_sql_server.dev.name}"
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}
+
+resource "azurerm_cosmosdb_account" "dev" {
+  name                = "customerapicdb"
+  location            = "${azurerm_resource_group.dev.location}"
+  resource_group_name = "${azurerm_resource_group.dev.name}"
+  offer_type          = "Standard"
+  kind                = "GlobalDocumentDB"
+
+  enable_automatic_failover = true
+
+  consistency_policy {
+    consistency_level       = "Session"
+  }
+
+  geo_location {
+    location          = "${azurerm_resource_group.dev.location}"
+    failover_priority = 0
+  }
+}
+
+output "cosmosdb_endpoint" {
+	value = "${azurerm_cosmosdb_account.dev.endpoint}"
+}
+
+output "cosmosdb_key" {
+	value = "${azurerm_cosmosdb_account.dev.primary_master_key}"
+}
+
+output "sqldb_domainname" {
+	value = "${azurerm_sql_server.dev.fully_qualified_domain_name}"
+}
