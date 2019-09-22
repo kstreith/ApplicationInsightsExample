@@ -40,6 +40,13 @@ namespace CustomerApi
             {
                 services.RegisterInMemoryDependencies(Configuration);
             }
+            services.AddApplicationInsightsTelemetry(options =>
+            {
+                Configuration.Bind("ApplicationInsights", options);
+            });
+            services.AddApplicationInsightsTelemetryProcessor<CustomTelemetryProcessor>();
+            var instrumentationKey = Configuration["ApplicationInsights:InstrumentationKey"];
+            //services.AddSingleton<ITelemetryInitializer, CustomTelemetryInitializer>();
             services.PostConfigureAll<LoggerFilterOptions>(action =>
             {
                 var matchingRule = action.Rules.SingleOrDefault(x => x.ProviderName == typeof(ApplicationInsightsLoggerProvider).FullName);

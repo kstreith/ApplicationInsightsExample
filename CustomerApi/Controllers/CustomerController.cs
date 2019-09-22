@@ -2,6 +2,7 @@
 using CustomerApi.Business.Models;
 using CustomerApi.Business.Services.Customer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace CustomerApi.Controllers
@@ -12,13 +13,16 @@ namespace CustomerApi.Controllers
     {
         private readonly CreateCustomerService _createCustomerService;
         private readonly GetCustomerService _getCustomerService;
+        private readonly ILogger<CustomerController> _logger;
 
         public CustomerController(
             CreateCustomerService createCustomerService,
-            GetCustomerService getCustomerService)
+            GetCustomerService getCustomerService,
+            ILogger<CustomerController> logger)
         {
             _createCustomerService = createCustomerService;
             _getCustomerService = getCustomerService;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -26,6 +30,7 @@ namespace CustomerApi.Controllers
         {
             try
             {
+                _logger.LogInformation("Test message for {id}", id);
                 var customer = await _getCustomerService.GetCustomerAsync(id);
                 return new OkObjectResult(customer);
             }

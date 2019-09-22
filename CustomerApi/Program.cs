@@ -17,23 +17,6 @@ namespace CustomerApi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .ConfigureServices((context, services) =>
-                {
-                    var config = context.Configuration;
-                    services.AddApplicationInsightsTelemetry(options =>
-                    {
-                        config.Bind("ApplicationInsights", options);
-                    });
-                    services.AddApplicationInsightsTelemetryProcessor<CustomTelemetryProcessor>();
-                    var instrumentationKey = config["ApplicationInsights:InstrumentationKey"];
-                    //services.AddSingleton<ITelemetryInitializer, CustomTelemetryInitializer>();
-                    //services.AddLogging((loggingBuilder) =>
-                    //{
-                    //    //loggingBuilder.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Trace);
-                    //    //loggingBuilder.AddConfiguration(config.GetSection("Logging"));
-                    //    loggingBuilder.AddApplicationInsights();
-                    //});
-                });
+                .UseStartup<Startup>();
     }
 }
