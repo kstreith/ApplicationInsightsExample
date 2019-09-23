@@ -22,7 +22,10 @@ namespace DataRepository.Cosmos
         {
             if (_client == null)
             {
-                _client = new CosmosClient(_endpoint, _authKey);
+                _client = new CosmosClient(_endpoint, _authKey, new CosmosClientOptions
+                {
+                    ConnectionMode = ConnectionMode.Gateway
+                });
             }
             return _client;
         }
