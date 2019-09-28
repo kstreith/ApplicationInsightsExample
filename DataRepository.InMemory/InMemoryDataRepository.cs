@@ -35,11 +35,6 @@ namespace DataRepository.InMemory
             return Task.FromResult<CustomerModel>(null);
         }
 
-        public Task<List<CustomerInteractionModel>> GetInteractionsAsync(int page)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<List<string>> GetRandomCustomerIdsAsync()
         {
             var values = _customers.Values;
@@ -47,14 +42,14 @@ namespace DataRepository.InMemory
             return Task.FromResult(values.Select(x => x.Id.ToString()).Take(items).ToList());
         }
 
-        public Task<Guid> LookupCustomerIdByEmailAsync(string emailAddress)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task OverwriteCustomerAsync(CustomerModel customer)
         {
-            throw new NotImplementedException();
+            if (!_customers.TryGetValue(customer.Id.Value, out var _))
+            {
+                throw new InvalidOperationException("Customer not found");
+            }
+            _customers.AddOrUpdate(customer.Id.Value, customer, (id, model) => customer);
+            return Task.CompletedTask;
         }
     }
 }

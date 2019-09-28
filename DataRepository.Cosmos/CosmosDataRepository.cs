@@ -23,13 +23,7 @@ namespace DataRepository.Cosmos
         {
             var client = _connection.GetOrCreateCosmosClient();
             var container = client.GetContainer("CustomerApi", "Customer");
-            try
-            {
-                await container.CreateItemAsync<CustomerDocument>(new CustomerDocument(customer));
-            } catch (Exception ex)
-            {
-                var message = ex.Message;
-            }
+            await container.CreateItemAsync<CustomerDocument>(new CustomerDocument(customer));
         }
 
         public async Task<CustomerModel> GetCustomerByIdAsync(Guid customerId)
@@ -46,11 +40,6 @@ namespace DataRepository.Cosmos
             {
                 return null;
             }
-        }
-
-        public Task<List<CustomerInteractionModel>> GetInteractionsAsync(int page)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<List<string>> GetRandomCustomerIdsAsync()
@@ -73,14 +62,12 @@ namespace DataRepository.Cosmos
             return ids;
         }
 
-        public Task<Guid> LookupCustomerIdByEmailAsync(string emailAddress)
+        public async Task OverwriteCustomerAsync(CustomerModel customer)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task OverwriteCustomerAsync(CustomerModel customer)
-        {
-            throw new NotImplementedException();
+            var client = _connection.GetOrCreateCosmosClient();
+            var container = client.GetContainer("CustomerApi", "Customer");
+            var customerDocument = new CustomerDocument(customer);
+            await container.ReplaceItemAsync<CustomerDocument>(customerDocument, customerDocument.id, new PartitionKey(customerDocument.PartitionKey));
         }
     }
 }

@@ -13,15 +13,18 @@ namespace CustomerApi.Controllers
     {
         private readonly CreateCustomerService _createCustomerService;
         private readonly GetCustomerService _getCustomerService;
+        private readonly UpdateCustomerService _updateConsumerService;
         private readonly ILogger<CustomerController> _logger;
 
         public CustomerController(
             CreateCustomerService createCustomerService,
             GetCustomerService getCustomerService,
+            UpdateCustomerService updateConsumerService,
             ILogger<CustomerController> logger)
         {
             _createCustomerService = createCustomerService;
             _getCustomerService = getCustomerService;
+            _updateConsumerService = updateConsumerService;
             _logger = logger;
         }
 
@@ -33,6 +36,21 @@ namespace CustomerApi.Controllers
                 _logger.LogInformation("Test message for {id}", id);
                 var customer = await _getCustomerService.GetCustomerAsync(id);
                 return new OkObjectResult(customer);
+            }
+            catch (NotFoundException)
+            {
+                return new NotFoundResult();
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> PutAsync(string id, CustomerModel customer)
+        {
+            try
+            {
+                _logger.LogInformation("Test message for {id}", id);
+                await _updateConsumerService.UpdateCustomerAsync(id, customer);
+                return new OkResult();
             }
             catch (NotFoundException)
             {

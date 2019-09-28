@@ -30,17 +30,7 @@ namespace DataRepository.SqlServer
             return results.FirstOrDefault();
         }
 
-        public Task<List<CustomerInteractionModel>> GetInteractionsAsync(int page)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<List<string>> GetRandomCustomerIdsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Guid> LookupCustomerIdByEmailAsync(string emailAddress)
         {
             throw new NotImplementedException();
         }
