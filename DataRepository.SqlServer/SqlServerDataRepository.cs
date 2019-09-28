@@ -30,14 +30,25 @@ namespace DataRepository.SqlServer
             return results.FirstOrDefault();
         }
 
-        public Task<List<string>> GetRandomCustomerIdsAsync()
+        public async Task<List<string>> GetRandomCustomerIdsAsync()
         {
-            throw new NotImplementedException();
+            var randomGuid = Guid.NewGuid();
+            var results = await _dbConnection.QueryAsync<CustomerModel>("SELECT TOP 100 Id FROM Customer WHERE Id > @Id", new { Id = randomGuid });
+            var ids = results.Select(x => x.Id.ToString()).ToList();
+            if (ids.Count < 100)
+            {
+                var moreResults = await _dbConnection.QueryAsync<CustomerModel>("SELECT TOP 100 Id FROM Customer WHERE Id <= @Id", new { Id = randomGuid });
+                var moreIds = moreResults.Select(x => x.Id.ToString());
+                ids.AddRange(moreIds);
+            }
+            return ids;
         }
 
-        public Task OverwriteCustomerAsync(CustomerModel customer)
+        public async Task OverwriteCustomerAsync(CustomerModel customer)
         {
-            throw new NotImplementedException();
+            await _dbConnection.ExecuteAsync(@"UPDATE Customer(Id, FirstName, LastName, EmailAddress) VALUES (@Id, @FirstName, @LastName, @EmailAddress) WHERE Id = @Id",
+                            customer);
         }
     }
 }
+ 
