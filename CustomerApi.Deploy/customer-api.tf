@@ -11,6 +11,10 @@ provider "azurerm" {
     version = "=1.33.0"
 }
 
+variable "sql_password" {
+    type = "string"
+    description = "Azure SQL Server Password"
+}
 resource "azurerm_resource_group" "dev" {
     name = "customer-api-rg"
     location = "East US2"
