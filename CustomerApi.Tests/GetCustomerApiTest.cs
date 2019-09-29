@@ -30,7 +30,7 @@ namespace CustomerApi.Tests
             response.Should().NotBeNull();
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             var responseContent = await response.Content.ReadAsStringAsync();
-            responseContent.Should().Be(@"{""id"":""88f37d26-6616-4598-8792-e3bb9b814c72"",""firstName"":""TestFirst"",""lastName"":""TestLast"",""emailAddress"":""test@test.itsnull.com""}");
+            responseContent.Should().Be(@"{""id"":""88f37d26-6616-4598-8792-e3bb9b814c72"",""firstName"":""TestFirst"",""lastName"":""TestLast"",""emailAddress"":""test@test.itsnull.com"",""birthMonth"":null,""birthDay"":null}");
         }
 
         [Fact]
