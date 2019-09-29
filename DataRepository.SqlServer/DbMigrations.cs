@@ -19,4 +19,20 @@ namespace DataRepository.SqlServer
             Delete.Table("Customer");
         }
     }
+
+    [Migration(20190928)]
+    public class BirthdayMigration : Migration
+    {
+        public override void Up()
+        {
+            Alter.Table("Customer")
+                .AddColumn("BirthDay").AsInt16().Nullable()
+                .AddColumn("BirthMonth").AsInt16().Nullable();
+        }
+
+        public override void Down()
+        {
+        }
+    }
+
 }

@@ -15,5 +15,11 @@ namespace CustomerApi.Business.Models
 
         [Required]
         public string EmailAddress { get; set; }
+
+        [Range(1, 12)]
+        public int? BirthMonth { get; set; }
+
+        [Range(1, 31)]
+        public int? BirthDay { get; set; }
     }
 }

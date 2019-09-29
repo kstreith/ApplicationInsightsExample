@@ -10,6 +10,8 @@ namespace DataRepository.Cosmos
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
+        public int? BirthMonth { get; set; }
+        public int? BirthDay { get; set; }
 
         public CustomerDocument()
         {
@@ -22,6 +24,8 @@ namespace DataRepository.Cosmos
             FirstName = customer.FirstName;
             LastName = customer.LastName;
             EmailAddress = customer.EmailAddress;
+            BirthMonth = customer.BirthMonth;
+            BirthDay = customer.BirthDay;
         }
 
         public CustomerModel ToCustomerModel()
@@ -32,6 +36,8 @@ namespace DataRepository.Cosmos
                 FirstName = FirstName,
                 LastName = LastName,
                 EmailAddress = EmailAddress,
+                BirthMonth = BirthMonth,
+                BirthDay = BirthDay
             };
         }
     }

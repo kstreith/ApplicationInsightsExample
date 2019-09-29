@@ -20,13 +20,13 @@ namespace DataRepository.SqlServer
 
         public async Task CreateCustomerAsync(CustomerModel customer)
         {
-            await _dbConnection.ExecuteAsync(@"INSERT Customer(Id, FirstName, LastName, EmailAddress) VALUES (@Id, @FirstName, @LastName, @EmailAddress)",
+            await _dbConnection.ExecuteAsync(@"INSERT Customer(Id, FirstName, LastName, EmailAddress, BirthMonth, BirthDay) VALUES (@Id, @FirstName, @LastName, @EmailAddress, @BirthMonth, @BirthDay)",
                 customer);
         }
 
         public async Task<CustomerModel> GetCustomerByIdAsync(Guid customerId)
         {
-            var results = await _dbConnection.QueryAsync<CustomerModel>("SELECT Id, FirstName, LastName, EmailAddress FROM Customer WHERE Id=@Id", new { Id = customerId });
+            var results = await _dbConnection.QueryAsync<CustomerModel>("SELECT Id, FirstName, LastName, EmailAddress, BirthMonth, BirthDay FROM Customer WHERE Id=@Id", new { Id = customerId });
             return results.FirstOrDefault();
         }
 
@@ -46,7 +46,7 @@ namespace DataRepository.SqlServer
 
         public async Task OverwriteCustomerAsync(CustomerModel customer)
         {
-            await _dbConnection.ExecuteAsync(@"UPDATE Customer(Id, FirstName, LastName, EmailAddress) VALUES (@Id, @FirstName, @LastName, @EmailAddress) WHERE Id = @Id",
+            await _dbConnection.ExecuteAsync(@"UPDATE Customer(Id, FirstName, LastName, EmailAddress, BirthMonth, BirthDay) VALUES (@Id, @FirstName, @LastName, @EmailAddress, @BirthMonth, @BirthDay) WHERE Id = @Id",
                             customer);
         }
     }
