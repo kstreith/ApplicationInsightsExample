@@ -46,8 +46,8 @@ namespace DataRepository.SqlServer
 
         public async Task OverwriteCustomerAsync(CustomerModel customer)
         {
-            await _dbConnection.ExecuteAsync(@"UPDATE Customer(Id, FirstName, LastName, EmailAddress, BirthMonth, BirthDay) VALUES (@Id, @FirstName, @LastName, @EmailAddress, @BirthMonth, @BirthDay) WHERE Id = @Id",
-                            customer);
+            await _dbConnection.ExecuteAsync(@"UPDATE Customer SET Id=@Id, FirstName=@FirstName, LastName=@LastName, EmailAddress=@EmailAddress, BirthMonth=@BirthMonth, BirthDay=@BirthDay WHERE Id = @Id",
+                customer);
         }
     }
 }
