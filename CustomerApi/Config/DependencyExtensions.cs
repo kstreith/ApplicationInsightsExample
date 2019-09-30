@@ -1,4 +1,5 @@
 ﻿using CustomerApi.Business.Services.Customer;
+using CustomerApi.Business.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CustomerApi.Config
@@ -12,6 +13,7 @@ namespace CustomerApi.Config
             services.AddTransient<GetCustomerService, GetCustomerService>();
             services.AddTransient<UpdateCustomerService, UpdateCustomerService>();
             services.AddTransient<GetRandomCustomerService, GetRandomCustomerService>();
+            services.AddSingleton<BusinessSimulationSetting>();
         }
     }
 }
