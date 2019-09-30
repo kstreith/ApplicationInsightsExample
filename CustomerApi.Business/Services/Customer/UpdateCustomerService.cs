@@ -14,7 +14,7 @@ namespace CustomerApi.Business.Services.Customer
         private readonly IDataRepository _dataRepository;
         private readonly ILogger<UpdateCustomerService> _logger;
         private readonly BusinessSimulationSetting _setting;
-        private long _counter;
+        private static long _counter;
 
         public UpdateCustomerService(IDataRepository dataRepository,
             ILogger<UpdateCustomerService> logger,
