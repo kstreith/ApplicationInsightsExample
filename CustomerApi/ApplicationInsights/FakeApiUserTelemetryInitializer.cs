@@ -5,15 +5,19 @@ using Microsoft.AspNetCore.Http;
 
 namespace CustomerApi
 {
-    public class CustomTelemetryInitializer : TelemetryInitializerBase
+    public class FakeApiUserTelemetryInitializer : TelemetryInitializerBase
     {
-        public CustomTelemetryInitializer(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        public FakeApiUserTelemetryInitializer(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
         }
 
         protected override void OnInitializeTelemetry(HttpContext platformContext, RequestTelemetry requestTelemetry, ITelemetry telemetry)
         {
-            return;
+            var headers = platformContext.Request.Headers;
+            if (headers.ContainsKey("x-fake-user"))
+            {
+                telemetry.Context.User.Id = headers["x-fake-user"];
+            }
         }
     }
 }

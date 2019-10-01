@@ -1,16 +1,9 @@
-﻿using System;
-using System.Linq;
-using CustomerApi.Config;
-using DataRepository.Cosmos;
-using DataRepository.InMemory;
-using DataRepository.SqlServer;
+﻿using CustomerApi.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.ApplicationInsights;
 
 namespace CustomerApi
 {
@@ -27,34 +20,8 @@ namespace CustomerApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.RegisterAppDependencies();
-            if (string.Equals(Configuration["Storage"], "Cosmos", StringComparison.InvariantCultureIgnoreCase))
-            {
-                services.RegisterCosmosDependencies(Configuration);
-            }
-            else if (string.Equals(Configuration["Storage"], "SqlServer", StringComparison.InvariantCultureIgnoreCase))
-            {
-                services.RegisterSqlServerDependencies(Configuration);
-            }
-            else
-            {
-                services.RegisterInMemoryDependencies(Configuration);
-            }
-            services.AddApplicationInsightsTelemetry(options =>
-            {
-                Configuration.Bind("ApplicationInsights", options);
-            });
-            services.AddApplicationInsightsTelemetryProcessor<CustomTelemetryProcessor>();
-            var instrumentationKey = Configuration["ApplicationInsights:InstrumentationKey"];
-            //services.AddSingleton<ITelemetryInitializer, CustomTelemetryInitializer>();
-            services.PostConfigureAll<LoggerFilterOptions>(action =>
-            {
-                var matchingRule = action.Rules.SingleOrDefault(x => x.ProviderName == typeof(ApplicationInsightsLoggerProvider).FullName);
-                if (matchingRule != null)
-                {
-                    action.Rules.Remove(matchingRule);
-                }
-            });
+            services.RegisterAppDependencies(Configuration);
+            services.ConfigureApplicationInsights(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
