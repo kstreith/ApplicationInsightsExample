@@ -1,5 +1,4 @@
 ﻿using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.SnapshotCollector;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -30,7 +29,6 @@ namespace CustomerApi.Config
                     action.Rules.Remove(matchingRule);
                 }
             });
-            services.AddSnapshotCollector(snapshotConfig => config.Bind(nameof(SnapshotCollectorConfiguration), snapshotConfig));
         }
     }
 }
