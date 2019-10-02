@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace CustomerApi
 {
@@ -40,10 +41,29 @@ namespace CustomerApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.Run(async context =>
+            app.UseMiddleware<HomePageMiddleware>();
+        }
+    }
+
+    public class HomePageMiddleware
+    {
+        private readonly RequestDelegate _requestDelegate;
+
+        public HomePageMiddleware(RequestDelegate requestDelegate)
+        {
+            _requestDelegate = requestDelegate;
+        }
+
+        public async Task Invoke(HttpContext httpContext)
+        {
+            if (httpContext.Request.Path == "/")
             {
-                await context.Response.WriteAsync("Test");
-            });
+                await httpContext.Response.WriteAsync("Customer API");
+            }
+            else
+            {
+                await _requestDelegate(httpContext);
+            }
         }
     }
 }
