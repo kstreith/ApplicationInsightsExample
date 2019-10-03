@@ -7,7 +7,6 @@
     <WarningsAsErrors />
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <Optimize>false</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
