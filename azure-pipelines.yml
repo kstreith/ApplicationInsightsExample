@@ -29,7 +29,7 @@ steps:
   displayName: 'dotnet publish $(buildConfiguration)'
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/CustomerApi/publish/'
+    rootFolderOrFile: '$(Build.SourcesDirectory)/publish/'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/webapi.zip'
