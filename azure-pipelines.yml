@@ -25,7 +25,8 @@ steps:
     command: 'test'
     projects: '**/*.Tests.csproj'
     testRunTitle: 'Unit Tests'
-- script: dotnet publish --configuration $(buildConfiguration) -o publish
+
+- script: dotnet publish --configuration $(buildConfiguration) $(Build.SourcesDirectory)/CustomerApi/CustomerApi.csproj -o publish
   displayName: 'dotnet publish $(buildConfiguration)'
 - task: ArchiveFiles@2
   inputs:
