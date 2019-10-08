@@ -19,7 +19,6 @@ namespace CustomerApi.Config
                 config.Bind("ApplicationInsights", options);
             });
             services.AddApplicationInsightsTelemetryProcessor<ScrubCustomerIdTelemetryProcessor>();
-            var instrumentationKey = config["ApplicationInsights:InstrumentationKey"];
             services.AddSingleton<ITelemetryInitializer, FakeApiUserTelemetryInitializer>();
             services.PostConfigureAll<LoggerFilterOptions>(action =>
             {

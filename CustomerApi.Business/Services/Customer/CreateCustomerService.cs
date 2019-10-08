@@ -26,15 +26,9 @@ namespace CustomerApi.Business.Services.Customer
         }
 
         public async Task<IdentifiableResult<CustomerModel>> CreateCustomerAsync(CustomerModel customer)
-        {
-            if (customer.BirthDay == null)
-            {
-                _logger.LogInformation($"{nameof(customer.BirthDay)} field set to null");
-            }
-            if (customer.BirthMonth == null)
-            {
-                _logger.LogInformation($"{nameof(customer.BirthMonth)} field set to null");
-            }
+        {   
+            _logger.LogInformation("{field} field set to {value}", nameof(CustomerModel.BirthDay), customer?.BirthDay);
+            _logger.LogInformation("{field} field set to {value}", nameof(CustomerModel.BirthMonth), customer?.BirthMonth);
             var newValue = Interlocked.Increment(ref _counter);
             if (newValue % _setting.InternalExceptionRate == 0)
             {

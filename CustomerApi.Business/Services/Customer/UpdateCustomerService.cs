@@ -42,27 +42,11 @@ namespace CustomerApi.Business.Services.Customer
             }
             if (existingCustomer.BirthDay != customer.BirthDay)
             {
-                if (existingCustomer.BirthDay == null)
-                {
-                    _logger.LogInformation($"{nameof(customer.BirthDay)} field updated to non-null");
-                }
-                else
-                {
-                    _logger.LogInformation($"{nameof(customer.BirthDay)} field updated to null");
-                }
-                
+                _logger.LogInformation("{field} field updated to {value}", nameof(customer.BirthDay), customer.BirthDay);
             }
             if (existingCustomer.BirthMonth != customer.BirthMonth)
             {
-                if (existingCustomer.BirthMonth == null)
-                {
-                    _logger.LogInformation($"{nameof(customer.BirthMonth)} field updated to non-null");
-                }
-                else
-                {
-                    _logger.LogInformation($"{nameof(customer.BirthMonth)} field updated to null");
-                }
-
+                 _logger.LogInformation("{field} field updated to {value}", nameof(customer.BirthMonth), customer.BirthMonth);
             }
             customer.Id = idGuid;
             await _dataRepository.OverwriteCustomerAsync(customer);
