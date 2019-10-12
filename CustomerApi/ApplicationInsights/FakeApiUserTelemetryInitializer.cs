@@ -2,6 +2,7 @@
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http;
+using System;
 
 namespace CustomerApi
 {
@@ -13,6 +14,14 @@ namespace CustomerApi
 
         protected override void OnInitializeTelemetry(HttpContext platformContext, RequestTelemetry requestTelemetry, ITelemetry telemetry)
         {
+            if (platformContext == null)
+            {
+                throw new ArgumentNullException(nameof(platformContext));
+            }
+            if (telemetry == null)
+            {
+                throw new ArgumentNullException(nameof(telemetry));
+            }
             var headers = platformContext.Request.Headers;
             if (headers.ContainsKey("x-fake-user"))
             {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataRepository.Cosmos
 {
-    public class CosmosConnection
+    public sealed class CosmosConnection : IDisposable
     {
         private readonly string _endpoint;
         private readonly string _authKey;
@@ -28,6 +28,11 @@ namespace DataRepository.Cosmos
                 });
             }
             return _client;
+        }
+
+        public void Dispose()
+        {
+            _client?.Dispose();
         }
     }
 }

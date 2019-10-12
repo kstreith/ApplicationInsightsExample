@@ -13,6 +13,10 @@ namespace CustomerApi.Config
     {
         public static void RegisterAppDependencies(this IServiceCollection services, IConfiguration config)
         {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
             if (string.Equals(config["Storage"], "Cosmos", StringComparison.InvariantCultureIgnoreCase))
             {
                 services.RegisterCosmosDependencies(config);
@@ -23,7 +27,7 @@ namespace CustomerApi.Config
             }
             else
             {
-                services.RegisterInMemoryDependencies(config);
+                services.RegisterInMemoryDependencies();
             }
             services.AddTransient<CreateSampleCustomerDataService, CreateSampleCustomerDataService>();
             services.AddTransient<CreateCustomerService, CreateCustomerService>();

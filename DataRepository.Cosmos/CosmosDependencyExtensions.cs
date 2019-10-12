@@ -8,7 +8,7 @@ namespace DataRepository.Cosmos
     {
         public static void RegisterCosmosDependencies(this IServiceCollection services, IConfiguration config)
         {
-            services.AddSingleton(new CosmosConnection(config["Cosmos:Endpoint"], config["Cosmos:AuthorizationKey"]));
+            services.AddSingleton(_ => new CosmosConnection(config["Cosmos:Endpoint"], config["Cosmos:AuthorizationKey"]));
             services.AddSingleton<IDataRepository, CosmosDataRepository>();
             services.AddSingleton<IDataRepositoryInitializer, CosmosDataRepositoryInitializer>();
         }

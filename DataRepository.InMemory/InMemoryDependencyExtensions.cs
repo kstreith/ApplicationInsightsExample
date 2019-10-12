@@ -6,7 +6,7 @@ namespace DataRepository.InMemory
 {
     public static class InMemoryDependencyExtensions
     {
-        public static void RegisterInMemoryDependencies(this IServiceCollection services, IConfiguration config)
+        public static void RegisterInMemoryDependencies(this IServiceCollection services)
         {
             services.AddSingleton<IDataRepository, InMemoryDataRepository>();
         }

@@ -48,13 +48,17 @@ namespace DataRepository.Cosmos
             var client = _connection.GetOrCreateCosmosClient();
             var container = client.GetContainer("CustomerApi", "Customer");
             var queryable = container.GetItemLinqQueryable<CustomerDocument>(requestOptions: new QueryRequestOptions { MaxBufferedItemCount = 100 });
+#pragma warning disable CA1307 // Specify StringComparison
             var iterator = queryable.Where(x => x.PartitionKey.CompareTo(randomGuid.ToString()) > 0).ToFeedIterator();
+#pragma warning restore CA1307 // Specify StringComparison
             var results = await iterator.ReadNextAsync();
             var ids = results.Resource.Select(x => x.PartitionKey).ToList();
             if (ids.Count < 100)
             {
                 var queryable2 = container.GetItemLinqQueryable<CustomerDocument>(requestOptions: new QueryRequestOptions { MaxBufferedItemCount = 100 });
+#pragma warning disable CA1307 // Specify StringComparison
                 var iterator2 = queryable2.Where(x => x.PartitionKey.CompareTo(randomGuid.ToString()) <= 0).ToFeedIterator();
+#pragma warning restore CA1307 // Specify StringComparison
                 var results2 = await iterator2.ReadNextAsync();
                 var moreIds = results2.Resource.Select(x => x.PartitionKey).ToList();
                 ids.AddRange(moreIds);

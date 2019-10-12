@@ -20,6 +20,10 @@ namespace DataRepository.Cosmos
 
         public CustomerDocument(CustomerModel customer)
         {
+            if (customer == null)
+            {
+                throw new ArgumentNullException(nameof(customer));
+            }
             PartitionKey = customer.Id.Value.ToString();
             FirstName = customer.FirstName;
             LastName = customer.LastName;

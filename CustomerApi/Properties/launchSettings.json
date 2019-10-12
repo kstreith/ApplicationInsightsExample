@@ -20,7 +20,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "Storage": "Cosmos"
+        "Storage": "InMemory"
       },
       "applicationUrl": "http://localhost:33663/"
     }

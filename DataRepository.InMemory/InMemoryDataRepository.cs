@@ -19,6 +19,10 @@ namespace DataRepository.InMemory
 
         public Task CreateCustomerAsync(CustomerModel customer)
         {
+            if (customer == null)
+            {
+                throw new ArgumentNullException(nameof(customer));
+            }
             if (!_customers.TryAdd(customer.Id.Value, customer))
             {
                 throw new InvalidOperationException("Add failed");
@@ -44,6 +48,10 @@ namespace DataRepository.InMemory
 
         public Task OverwriteCustomerAsync(CustomerModel customer)
         {
+            if (customer == null)
+            {
+                throw new ArgumentNullException(nameof(customer));
+            }
             if (!_customers.TryGetValue(customer.Id.Value, out var _))
             {
                 throw new InvalidOperationException("Customer not found");

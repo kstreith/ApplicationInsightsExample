@@ -27,6 +27,10 @@ namespace CustomerApi.Business.Services.Customer
 
         public async Task UpdateCustomerAsync(string id, CustomerModel customer)
         {
+            if (customer == null)
+            {
+                throw new ArgumentNullException(nameof(customer));
+            }
             if (!Guid.TryParse(id, out var idGuid)) {
                 throw new NotFoundException();
             }

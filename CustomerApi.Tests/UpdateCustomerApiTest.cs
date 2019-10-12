@@ -30,7 +30,7 @@ namespace CustomerApi.Tests
                 lastName = "TestLastUpdate",
                 emailAddress = "test2@test.pandora.net"
             };
-            var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
+            using var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
             var result = await client.PutAsync("/api/customer/88f37d26-6616-4598-8792-e3bb9b814c72", request);
 
             // Assert
@@ -52,7 +52,7 @@ namespace CustomerApi.Tests
                 lastName = "TestLastUpdate",
                 emailAddress = "test2@test.pandora.net"
             };
-            var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
+            using var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
             var result = await client.PutAsync($"/api/customer/{id}", request);
 
             // Assert
@@ -76,7 +76,7 @@ namespace CustomerApi.Tests
                 lastName = "TestLastUpdate",
                 emailAddress = "test2@test.pandora.net"
             };
-            var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
+            using var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
             var result = await client.PutAsync("/api/customer/88f37d26-6616-4598-8792-e3bb9b814c72", request);
 
             // Assert
@@ -84,8 +84,8 @@ namespace CustomerApi.Tests
             result.Headers.Location.Should().BeNull();
             var responseString = await result.Content.ReadAsStringAsync();
             var responseContent = JObject.Parse(responseString);
-            responseContent.Should().HaveCount(4);
-            responseContent.Should().ContainKeys("errors", "title", "status", "traceId");
+            responseContent.Should().HaveCount(5);
+            responseContent.Should().ContainKeys("type", "errors", "title", "status", "traceId");
             responseContent["title"]?.ToString().Should().Be("One or more validation errors occurred.");
             responseContent["status"]?.ToString().Should().Be("400");
             responseContent["traceId"].Should().NotBeNull();
@@ -104,7 +104,7 @@ namespace CustomerApi.Tests
                 firstName = "TestFirst",
                 emailAddress = "test2@test.pandora.net"
             };
-            var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
+            using var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
             var result = await client.PutAsync("/api/customer/88f37d26-6616-4598-8792-e3bb9b814c72", request);
 
             // Assert
@@ -112,8 +112,8 @@ namespace CustomerApi.Tests
             result.Headers.Location.Should().BeNull();
             var responseString = await result.Content.ReadAsStringAsync();
             var responseContent = JObject.Parse(responseString);
-            responseContent.Should().HaveCount(4);
-            responseContent.Should().ContainKeys("errors", "title", "status", "traceId");
+            responseContent.Should().HaveCount(5);
+            responseContent.Should().ContainKeys("type", "errors", "title", "status", "traceId");
             responseContent["title"]?.ToString().Should().Be("One or more validation errors occurred.");
             responseContent["status"]?.ToString().Should().Be("400");
             responseContent["traceId"].Should().NotBeNull();
@@ -132,7 +132,7 @@ namespace CustomerApi.Tests
                 firstName = "TestFirst",
                 lastName = "TestLast"
             };
-            var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
+            using var request = new StringContent(JsonConvert.SerializeObject(requestObj), Encoding.UTF8, "application/json");
             var result = await client.PutAsync("/api/customer/88f37d26-6616-4598-8792-e3bb9b814c72", request);
 
             // Assert
@@ -140,8 +140,8 @@ namespace CustomerApi.Tests
             result.Headers.Location.Should().BeNull();
             var responseString = await result.Content.ReadAsStringAsync();
             var responseContent = JObject.Parse(responseString);
-            responseContent.Should().HaveCount(4);
-            responseContent.Should().ContainKeys("errors", "title", "status", "traceId");
+            responseContent.Should().HaveCount(5);
+            responseContent.Should().ContainKeys("type", "errors", "title", "status", "traceId");
             responseContent["title"]?.ToString().Should().Be("One or more validation errors occurred.");
             responseContent["status"]?.ToString().Should().Be("400");
             responseContent["traceId"].Should().NotBeNull();

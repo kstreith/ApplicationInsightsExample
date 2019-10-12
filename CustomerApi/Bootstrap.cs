@@ -1,16 +1,21 @@
 ﻿using CustomerApi.Business.Interfaces;
 using CustomerApi.Business.Services.Customer;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 using System.Threading.Tasks;
 
 namespace CustomerApi
 {
     public static class Bootstrap
     {
-        public static async Task InitializeApplication(IWebHost host)
+        public static async Task InitializeApplication(IHost host)
         {
+            if (host == null)
+            {
+                throw new ArgumentNullException(nameof(host));
+            }
             using (var scope = host.Services.CreateScope())
             {
                 var initializer = scope.ServiceProvider.GetService<IDataRepositoryInitializer>();
