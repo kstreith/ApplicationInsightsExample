@@ -29,6 +29,7 @@ namespace CustomerApi
                     var request = item as RequestTelemetry;
                     if (request != null)
                     {
+                        request.Name = _guidRegex.Replace(request.Name, "guid");
                         request.Url = new Uri(_guidRegex.Replace(request.Url.AbsoluteUri, "guid"));
                     }
                 }
