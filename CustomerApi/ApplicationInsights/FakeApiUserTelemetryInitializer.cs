@@ -8,11 +8,11 @@ namespace CustomerApi
 {
     public class FakeApiUserTelemetryInitializer : TelemetryInitializerBase
     {
-        public FakeApiUserTelemetryInitializer(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        public FakeApiUserTelemetryInitializer(IHttpContextAccessor? httpContextAccessor) : base(httpContextAccessor)
         {
         }
 
-        protected override void OnInitializeTelemetry(HttpContext platformContext, RequestTelemetry requestTelemetry, ITelemetry telemetry)
+        protected override void OnInitializeTelemetry(HttpContext? platformContext, RequestTelemetry? requestTelemetry, ITelemetry? telemetry)
         {
             if (platformContext == null)
             {

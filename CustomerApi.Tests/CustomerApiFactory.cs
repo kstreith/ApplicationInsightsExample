@@ -10,7 +10,7 @@ namespace CustomerApi.Tests
 {
     public class CustomerApiFactory : WebApplicationFactory<Startup>
     {
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        protected override void ConfigureWebHost(IWebHostBuilder? builder)
         {
             if (builder == null)
             {

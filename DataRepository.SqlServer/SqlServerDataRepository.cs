@@ -24,7 +24,7 @@ namespace DataRepository.SqlServer
                 customer);
         }
 
-        public async Task<CustomerModel> GetCustomerByIdAsync(Guid customerId)
+        public async Task<CustomerModel?> GetCustomerByIdAsync(Guid customerId)
         {
             var results = await _dbConnection.QueryAsync<CustomerModel>("SELECT Id, FirstName, LastName, EmailAddress, BirthMonth, BirthDay FROM Customer WHERE Id=@Id", new { Id = customerId });
             return results.FirstOrDefault();

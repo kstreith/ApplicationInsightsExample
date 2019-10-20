@@ -6,10 +6,10 @@ namespace DataRepository.Cosmos
     public class CustomerDocument
     {
         public string id => $"{PartitionKey}|CustomerDocument";
-        public string PartitionKey { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EmailAddress { get; set; }
+        public string? PartitionKey { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? EmailAddress { get; set; }
         public int? BirthMonth { get; set; }
         public int? BirthDay { get; set; }
 
@@ -20,9 +20,9 @@ namespace DataRepository.Cosmos
 
         public CustomerDocument(CustomerModel customer)
         {
-            if (customer == null)
+            if (customer.Id == null)
             {
-                throw new ArgumentNullException(nameof(customer));
+                throw new InvalidOperationException("Customer Id cannot be null");
             }
             PartitionKey = customer.Id.Value.ToString();
             FirstName = customer.FirstName;

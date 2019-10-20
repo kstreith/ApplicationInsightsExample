@@ -11,7 +11,7 @@ namespace CustomerApi.Config
 {
     public static class DependencyExtensions
     {
-        public static void RegisterAppDependencies(this IServiceCollection services, IConfiguration config)
+        public static void RegisterAppDependencies(this IServiceCollection services, IConfiguration? config)
         {
             if (config == null)
             {

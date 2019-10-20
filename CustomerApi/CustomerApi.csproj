@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <CodeAnalysisRuleSet>..\CustomerApi.ruleset</CodeAnalysisRuleSet>
-    <UserSecretsId>d597f0fd-fa97-424d-b9b8-945c3d20d079</UserSecretsId>    
+    <UserSecretsId>d597f0fd-fa97-424d-b9b8-945c3d20d079</UserSecretsId>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

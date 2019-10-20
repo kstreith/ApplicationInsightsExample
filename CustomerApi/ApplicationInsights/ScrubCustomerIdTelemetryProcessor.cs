@@ -9,18 +9,18 @@ namespace CustomerApi
 {
     public class ScrubCustomerIdTelemetryProcessor : ITelemetryProcessor
     {
-        private readonly ITelemetryProcessor _next;
-        private readonly IConfiguration _config;
+        private readonly ITelemetryProcessor? _next;
+        private readonly IConfiguration? _config;
         private readonly Regex _guidRegex;
 
-        public ScrubCustomerIdTelemetryProcessor(ITelemetryProcessor next, IConfiguration config)
+        public ScrubCustomerIdTelemetryProcessor(ITelemetryProcessor? next, IConfiguration? config)
         {
             _next = next;
             _config = config;
             _guidRegex = new Regex("([0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12})");
         }
 
-        public void Process(ITelemetry item)
+        public void Process(ITelemetry? item)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace CustomerApi
             }
             finally
             {
-                _next.Process(item);
+                _next?.Process(item);
             }
         }
     }

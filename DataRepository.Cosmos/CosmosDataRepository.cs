@@ -10,6 +10,18 @@ using System.Threading.Tasks;
 
 namespace DataRepository.Cosmos
 {
+    public static class NonNullExtension
+    {
+        public static IEnumerable<T> NotNull<T>(this IEnumerable<T?> list) where T : class
+        {
+            foreach (var item in list)
+            {
+                if (item != null) {
+                    yield return item;
+                }
+            }
+        }
+    }
     public class CosmosDataRepository : IDataRepository
     {
         private readonly CosmosConnection _connection;
@@ -26,7 +38,7 @@ namespace DataRepository.Cosmos
             await container.CreateItemAsync<CustomerDocument>(new CustomerDocument(customer));
         }
 
-        public async Task<CustomerModel> GetCustomerByIdAsync(Guid customerId)
+        public async Task<CustomerModel?> GetCustomerByIdAsync(Guid customerId)
         {
             var client = _connection.GetOrCreateCosmosClient();
             var container = client.GetContainer("CustomerApi", "Customer");
@@ -49,18 +61,22 @@ namespace DataRepository.Cosmos
             var container = client.GetContainer("CustomerApi", "Customer");
             var queryable = container.GetItemLinqQueryable<CustomerDocument>(requestOptions: new QueryRequestOptions { MaxBufferedItemCount = 100 });
 #pragma warning disable CA1307 // Specify StringComparison
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             var iterator = queryable.Where(x => x.PartitionKey.CompareTo(randomGuid.ToString()) > 0).ToFeedIterator();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CA1307 // Specify StringComparison
             var results = await iterator.ReadNextAsync();
-            var ids = results.Resource.Select(x => x.PartitionKey).ToList();
+            var ids = results.Resource.Select(x => x.PartitionKey).NotNull().ToList();
             if (ids.Count < 100)
             {
                 var queryable2 = container.GetItemLinqQueryable<CustomerDocument>(requestOptions: new QueryRequestOptions { MaxBufferedItemCount = 100 });
 #pragma warning disable CA1307 // Specify StringComparison
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 var iterator2 = queryable2.Where(x => x.PartitionKey.CompareTo(randomGuid.ToString()) <= 0).ToFeedIterator();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CA1307 // Specify StringComparison
                 var results2 = await iterator2.ReadNextAsync();
-                var moreIds = results2.Resource.Select(x => x.PartitionKey).ToList();
+                var moreIds = results2.Resource.Select(x => x.PartitionKey).NotNull().ToList();
                 ids.AddRange(moreIds);
             }
             return ids;

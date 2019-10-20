@@ -19,9 +19,9 @@ namespace DataRepository.InMemory
 
         public Task CreateCustomerAsync(CustomerModel customer)
         {
-            if (customer == null)
+            if (customer.Id == null)
             {
-                throw new ArgumentNullException(nameof(customer));
+                throw new InvalidOperationException("Customer Id cannot be null");
             }
             if (!_customers.TryAdd(customer.Id.Value, customer))
             {
@@ -30,13 +30,13 @@ namespace DataRepository.InMemory
             return Task.CompletedTask;
         }
 
-        public Task<CustomerModel> GetCustomerByIdAsync(Guid customerId)
+        public Task<CustomerModel?> GetCustomerByIdAsync(Guid customerId)
         {
             if (_customers.TryGetValue(customerId, out var customer))
             {
-                return Task.FromResult(customer);
+                return Task.FromResult<CustomerModel?>(customer);
             }
-            return Task.FromResult<CustomerModel>(null);
+            return Task.FromResult<CustomerModel?>(null);
         }
 
         public Task<List<string>> GetRandomCustomerIdsAsync()
@@ -48,9 +48,9 @@ namespace DataRepository.InMemory
 
         public Task OverwriteCustomerAsync(CustomerModel customer)
         {
-            if (customer == null)
+            if (customer.Id == null)
             {
-                throw new ArgumentNullException(nameof(customer));
+                throw new InvalidOperationException("Customer Id cannot be null");
             }
             if (!_customers.TryGetValue(customer.Id.Value, out var _))
             {

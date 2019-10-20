@@ -9,7 +9,7 @@ namespace DataRepository.Cosmos
     {
         private readonly string _endpoint;
         private readonly string _authKey;
-        private CosmosClient _client;
+        private CosmosClient? _client;
 
         internal CosmosConnection(string endpoint, string authKey)
         {

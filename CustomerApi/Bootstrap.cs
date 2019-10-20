@@ -10,7 +10,7 @@ namespace CustomerApi
 {
     public static class Bootstrap
     {
-        public static async Task InitializeApplication(IHost host)
+        public static async Task InitializeApplication(IHost? host)
         {
             if (host == null)
             {

@@ -2,6 +2,7 @@
 using CustomerApi.Business.Models;
 using CustomerApi.Business.Services.Customer;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace CustomerApi.Controllers
@@ -39,10 +40,14 @@ namespace CustomerApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutAsync(string id, CustomerModel customer)
+        public async Task<ActionResult> PutAsync(string id, CustomerModel? customer)
         {
             try
             {
+                if (customer == null)
+                {
+                    throw new ArgumentNullException(nameof(customer));
+                }
                 await _updateConsumerService.UpdateCustomerAsync(id, customer);
                 return new OkResult();
             }
@@ -53,8 +58,12 @@ namespace CustomerApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerModel>> PostAsync([FromBody] CustomerModel value)
+        public async Task<ActionResult<CustomerModel>> PostAsync([FromBody] CustomerModel? value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
             var result = await _createCustomerService.CreateCustomerAsync(value);
             return new CreatedAtActionResult(nameof(GetAsync), "Customer", new { id = result.Id }, null);
         }

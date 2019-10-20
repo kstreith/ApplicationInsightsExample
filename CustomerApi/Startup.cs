@@ -56,12 +56,16 @@ namespace CustomerApi
     {
         private readonly RequestDelegate _requestDelegate;
 
-        public HomePageMiddleware(RequestDelegate requestDelegate)
+        public HomePageMiddleware(RequestDelegate? requestDelegate)
         {
+            if (requestDelegate == null)
+            {
+                throw new ArgumentNullException(nameof(requestDelegate));
+            }
             _requestDelegate = requestDelegate;
         }
 
-        public async Task Invoke(HttpContext httpContext)
+        public async Task Invoke(HttpContext? httpContext)
         {
             if (httpContext == null)
             {
