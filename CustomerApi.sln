@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerApi", "CustomerApi\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C88EBD38-5ADD-4609-A65E-7FAD90E1ABAF}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		azure-pipelines.yml = azure-pipelines.yml
 		CustomerApi.Deploy\create-terraform-storage.ps1 = CustomerApi.Deploy\create-terraform-storage.ps1
 		CustomerApi.Deploy\customer-api.tf = CustomerApi.Deploy\customer-api.tf
@@ -19,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository.InMemory", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository.Cosmos", "DataRepository.Cosmos\DataRepository.Cosmos.csproj", "{833235B3-3002-43A6-9117-1BA52AEDA64F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerApi.Tests", "CustomerApi.Tests\CustomerApi.Tests.csproj", "{261ACDDA-4947-4381-8366-343D55822186}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerApi.Tests", "CustomerApi.Tests\CustomerApi.Tests.csproj", "{261ACDDA-4947-4381-8366-343D55822186}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRepository.SqlServer", "DataRepository.SqlServer\DataRepository.SqlServer.csproj", "{AED8C7E7-4B0F-46C3-96B4-7853736CDD94}"
 EndProject
