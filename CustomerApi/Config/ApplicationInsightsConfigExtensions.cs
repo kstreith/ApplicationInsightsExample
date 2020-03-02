@@ -1,4 +1,5 @@
 ﻿using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.Extensibility.PerfCounterCollector.QuickPulse;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,6 +20,10 @@ namespace CustomerApi.Config
                 config.Bind("ApplicationInsights", options);
             });
             services.AddApplicationInsightsTelemetryProcessor<ScrubCustomerIdTelemetryProcessor>();
+            services.ConfigureTelemetryModule<QuickPulseTelemetryModule>((module, o) =>
+            {
+                module.AuthenticationApiKey = config["ApplicationInsights:AuthenticationApiKey"];
+            });
             services.AddSingleton<ITelemetryInitializer, FakeApiUserTelemetryInitializer>();
             services.PostConfigureAll<LoggerFilterOptions>(action =>
             {
