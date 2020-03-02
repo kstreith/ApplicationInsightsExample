@@ -31,6 +31,7 @@ namespace CustomerApi
                     {
                         request.Name = _guidRegex.Replace(request.Name, "guid");
                         request.Url = new Uri(_guidRegex.Replace(request.Url.AbsoluteUri, "guid"));
+                        request.Context.Operation.Name = _guidRegex.Replace(request.Context.Operation.Name, "guid");
                     }
                 }
             }
